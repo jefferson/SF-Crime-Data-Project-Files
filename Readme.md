@@ -32,19 +32,19 @@ To determine if we have reached the optimal group of the above property values w
 
 ## How to run the project:
 
-0. Unzip ```police-department-calls-for-service.7z``` to ```police-department-calls-for-service.json```
+1. Unzip ```police-department-calls-for-service.7z``` to ```police-department-calls-for-service.json```
 
-1. Run `./start.sh` to install project requirements. If you use **pip** rather than conda, then use `pip install -r requirements.txt`
+2. Run `./start.sh` to install project requirements. If you use **pip** rather than conda, then use `pip install -r requirements.txt`
 
-2. Start **zookeeper server**: `zookeeper-server-start ./config/zookeeper.properties`
+3. Start **zookeeper server**: `zookeeper-server-start ./config/zookeeper.properties`
 
-3. Open a new terminal and start **kafka server**: `/usr/bin/kafka-server-start ./config/server.properties`
+4. Open a new terminal and start **kafka server**: `/usr/bin/kafka-server-start ./config/server.properties`
 
-4. Open a new terminal and run `python kafka_server.py`
+5. Open a new terminal and run `python kafka_server.py`
 
-5. Open a new terminal and start **kafka-consumer-console**: `/usr/bin/kafka-console-consumer --bootstrap-server localhost:9091 --topic service.calls --from-beginning`
+6. Open a new terminal and start **kafka-consumer-console**: `/usr/bin/kafka-console-consumer --bootstrap-server localhost:9091 --topic service.calls --from-beginning`
 
-6. Run **spark job**: `spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.11:2.3.4 --master local[*] data_stream.py`
+7. Run **spark job**: `spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.11:2.3.4 --master local[*] data_stream.py`
 
 
 
