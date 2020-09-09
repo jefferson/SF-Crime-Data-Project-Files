@@ -46,3 +46,13 @@ To determine if we have reached the optimal group of the above property values w
 
 6. Run **spark job**: `spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.11:2.3.4 --master local[*] data_stream.py`
 
+
+zookeeper-server-start ./config/zookeeper.properties
+
+/usr/bin/kafka-server-start ./config/server.properties 
+
+python kafka_server.py
+
+/usr/bin/kafka-console-consumer --bootstrap-server localhost:9091 --topic service.calls --from-beginning
+
+spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.11:2.3.4 --master local[*] data_stream.py

@@ -1,14 +1,11 @@
 import producer_server
 
-INPUT_FILE = "police-department-calls-for-service.json"
+FILE = "police-department-calls-for-service.json"
 
 def run_kafka_server():
-	# TODO get the json file path
-    #input_file = INPUT_FILE
 
-    # TODO fill in blanks
     producer = producer_server.ProducerServer(
-        input_file=INPUT_FILE,
+        input_file=FILE,
         topic="service.calls",
         bootstrap_servers="localhost:9091",
         client_id=None
