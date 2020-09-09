@@ -36,23 +36,22 @@ To determine if we have reached the optimal group of the above property values w
 
 1. Run `./start.sh` to install project requirements. If you use **pip** rather than conda, then use `pip install -r requirements.txt`
 
-2. Start **zookeeper server**: `/usr/bin/zookeeper-server-start config/zookeeper.properties`
+2. Start **zookeeper server**: `zookeeper-server-start ./config/zookeeper.properties`
 
-3. Open a new terminal and start **kafka server**: `/usr/bin/kafka-server-start.sh config/server.properties`
+3. Open a new terminal and start **kafka server**: `/usr/bin/kafka-server-start ./config/server.properties`
 
 4. Open a new terminal and run `python kafka_server.py`
 
-5. Open a new terminal and start **kafka-consumer-console**: `/usr/bin/kafka-consumer-console --bootstrap-server localhost:9091 --topic service.calls --from-beginning`
+5. Open a new terminal and start **kafka-consumer-console**: `/usr/bin/kafka-console-consumer --bootstrap-server localhost:9091 --topic service.calls --from-beginning`
 
 6. Run **spark job**: `spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.11:2.3.4 --master local[*] data_stream.py`
 
 
-zookeeper-server-start ./config/zookeeper.properties
 
-/usr/bin/kafka-server-start ./config/server.properties 
 
-python kafka_server.py
 
-/usr/bin/kafka-console-consumer --bootstrap-server localhost:9091 --topic service.calls --from-beginning
 
-spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.11:2.3.4 --master local[*] data_stream.py
+
+
+
+
