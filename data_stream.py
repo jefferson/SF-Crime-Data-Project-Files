@@ -50,15 +50,39 @@ def run_spark_job(spark):
         .select(psf.from_json(psf.col('value'), schema).alias("DF"))\
         .select("DF.*")
 
+    service_table.printSchema()
+
     # TODO select original_crime_type_name and disposition
-    distinct_table = service_table.select(
-        psf.col("original_crime_type_name"),
-        psf.to_timestamp(psf.col("call_date_time")).alias("call_date_time"),
-        psf.col("disposition")
-    )
+    # distinct_table = service_table.select(
+    #     psf.col("original_crime_type_name"),
+    #     psf.to_timestamp(psf.col("call_date_time")).alias("call_date_time"),
+    #     psf.col("disposition")
+    # )
+    distinct_table = service_table \
+        .select(
+            psf.to_timestamp(psf.col("call_date_time")).alias("call_date_time"),
+            psf.col("original_crime_type_name"),
+            psf.col("disposition")
+        )
+    
+    distinct_table.printSchema()
 
     # count the number of original crime type
-    agg_df = distinct_table.groupBy("original_crime_type_name", psf.window("call_date_time", "60 minutes")).count()
+    # agg_df = distinct_table.groupBy("original_crime_type_name", 
+    # psf.window("call_date_time", "60 minutes")).count()
+
+    agg_df = distinct_table \
+        .select(
+        distinct_table.call_date_time,
+        distinct_table.original_crime_type_name,
+        distinct_table.disposition
+    ) \
+        .withWatermark("call_date_time", "60 minutes") \
+        .groupBy(
+        psf.window(distinct_table.call_date_time, "10 minutes", "5 minutes"),
+        psf.col("original_crime_type_name")
+    ) \
+    .count()
 
 
     # TODO Q1. Submit a screen shot of a batch ingestion of the aggregation
